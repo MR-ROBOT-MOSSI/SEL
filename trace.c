@@ -8,6 +8,7 @@
 
 int main (int argc, char *argv[])
 {	
+	//system("ls -l");
 	/**
 	*	Déclaration des variables 
 	**/
@@ -15,7 +16,10 @@ int main (int argc, char *argv[])
 	char *adresse_fonction2[50]; 
 	char trap = 0xCC;
 	char *fic[30]; 
-	FILE* fichier ; 
+	FILE* fichier ;
+	char *temp0[30];
+	char *temp1[30];
+	char *temp2[30];  
 	
 	/**
 	* 	Récupération des arguments 
@@ -23,6 +27,15 @@ int main (int argc, char *argv[])
 
 	pid_t pid = atoi(argv[1]); 
 	adresse_fonction = argv[2];
+	
+	/**
+	*
+	**/
+	sprintf(temp0, "readlink /proc/%d/exe > chemin_trace.txt", pid);
+	system(temp0);
+	sprintf(temp1, "nm %s", temp2); 
+	printf(temp2);
+	//nm /home/abdoul/Bureau/TP_SEL_2018/code | grep ecrire | cut -d ' ' -f1
 	 
 	//Concaténation @ mémoire + conversion en long  
 	sprintf(adresse_fonction2,"0x%s",adresse_fonction);	
@@ -68,6 +81,16 @@ int main (int argc, char *argv[])
 	}
 	
 		ptrace(PTRACE_CONT,pid,NULL,NULL);
-
+		printf("Test Avant WAIT");
+		wait(NULL);
+		printf("TEST Après WAIT");
 		ptrace(PTRACE_DETACH,pid,NULL,NULL);
 }
+
+
+
+
+	concat(char l1, char l2)
+	{
+	
+	}

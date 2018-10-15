@@ -23,7 +23,7 @@ int main()
 	}	
 
 	ecrire();
-	printf("adresse de la fonction ecrire est : %p ", ecrire);
+	
 	while(1)
 	{
 		boucle();

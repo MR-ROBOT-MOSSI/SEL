@@ -16,7 +16,7 @@ int main (int argc, char *argv[])
 	**/
 	char *adresse_fonction ;
 	char *adresse_fonction2[50]; 
-	char trap = 0xCC;
+	char trap = 0xCC ;
 	char *fic[30]; 
 	FILE* fichier ;
 	char *temp0[30];
@@ -30,7 +30,7 @@ int main (int argc, char *argv[])
 	char ch;
 	
 	char buf[bufSize];
-	char buf2[bufSize];
+	char buf2[bufSize] ;
 
 	/**
 	* 	Récupération des arguments 
@@ -53,23 +53,14 @@ int main (int argc, char *argv[])
     	exit(EXIT_FAILURE);
    	}
    	
-   	//printf("The contents of %s file are:\n", file_name);
    	
    	while (fgets(buf, sizeof(buf), fp) != NULL){
    	 	buf[strlen(buf) - 1] = '\0'; // eat the newline fgets() stores
-    	//printf("%s\n", buf);
   	}
-   	
    	
    	
    	fclose(fp);
    	ret = remove("chemin_trace.txt");
-   	
-   	/*if(ret == 0) {
-      	printf("File deleted successfully");
-   	} else {
-      	printf("Error: unable to delete the file");
-   	}*/
       
    	sprintf(temp1, "nm %s | grep ecrire | cut -d ' ' -f1 > adresse.txt", buf);
 	system(temp1);
@@ -77,29 +68,25 @@ int main (int argc, char *argv[])
 	
 	f_addr = fopen("adresse.txt", "r"); // read mode
  
-   	if (fp == NULL)
+   	if (f_addr == NULL)
    	{
     	perror("Error while opening the file adresse.\n");
     	exit(EXIT_FAILURE);
    	}
    	
-   	while (fgets(buf2, sizeof(buf2), f_addr) != NULL){
+  	while (fgets(buf2, sizeof(buf2), f_addr) != NULL){
    	 	buf2[strlen(buf2) - 1] = '\0'; // eat the newline fgets() stores
-    	//printf("%s\n", buf2);
   	}
   	
+
   	fclose(f_addr);
    	ret2 = remove("adresse.txt");
 	
-	
-	//nm /home/abdoul/Bureau/TP_SEL_2018/code | grep ecrire | cut -d ' ' -f1
 	 
 	//Concaténation @ mémoire + conversion en long  
-	printf("%s\n", buf2);
+
 	sprintf(adresse_fonction2,"0x%s",buf2);	
 	long var = strtol(adresse_fonction2,&adresse_fonction2,16);	
-
-	
 
 	int att = ptrace(PTRACE_ATTACH, pid, NULL, NULL); //Attachement au processus
 
@@ -136,9 +123,9 @@ int main (int argc, char *argv[])
 	}
 	
 		ptrace(PTRACE_CONT,pid,NULL,NULL);
-		printf("Test Avant WAIT");
+	/*	printf("Test Avant WAIT\n");
 		wait(NULL);
-		printf("TEST Après WAIT");
+		printf("TEST Après WAIT\n");*/
 		ptrace(PTRACE_DETACH,pid,NULL,NULL);
 		
 		return 0;

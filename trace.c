@@ -6,8 +6,11 @@
 #include <errno.h>
 #include <sys/user.h>
 
+#define bufSize 1024
+
 int main (int argc, char *argv[])
 {	
+	//system("ls -l");
 	/**
 	*	Déclaration des variables 
 	**/
@@ -15,7 +18,16 @@ int main (int argc, char *argv[])
 	char *adresse_fonction2[50]; 
 	char trap = 0xCC ;
 	char *fic[30]; 
-	FILE* fichier ; 
+	FILE* fichier ;
+	char *temp0[30];
+	char *temp1[30];
+	char *temp2[30];  
+	
+	FILE *fp;
+	FILE *f_addr;
+	
+	int ret, ret2;
+	char ch;
 	
 	char buf[bufSize];
 	char buf2[bufSize] ;
@@ -76,11 +88,6 @@ int main (int argc, char *argv[])
 	sprintf(adresse_fonction2,"0x%s",buf2);	
 	long var = strtol(adresse_fonction2,&adresse_fonction2,16);	
 
-
-	/**
-	*
-	**/
-
 	int att = ptrace(PTRACE_ATTACH, pid, NULL, NULL); //Attachement au processus
 
 	if (att == 0)
@@ -119,6 +126,10 @@ int main (int argc, char *argv[])
 	/*	printf("Test Avant WAIT\n");
 		wait(NULL);
 		printf("TEST Après WAIT\n");*/
-		
 		ptrace(PTRACE_DETACH,pid,NULL,NULL);
+		
+		return 0;
 }
+
+//texte hasher + chiffrer est-il suifissant 
+

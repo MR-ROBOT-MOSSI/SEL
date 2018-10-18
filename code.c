@@ -23,7 +23,7 @@ int main()
 	}	
 
 	ecrire();
-
+	
 	while(1)
 	{
 		boucle();

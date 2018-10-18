@@ -119,5 +119,6 @@ int main (int argc, char *argv[])
 	/*	printf("Test Avant WAIT\n");
 		wait(NULL);
 		printf("TEST Après WAIT\n");*/
+		
 		ptrace(PTRACE_DETACH,pid,NULL,NULL);
 }
